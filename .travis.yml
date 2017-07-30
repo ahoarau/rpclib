@@ -26,9 +26,10 @@ install:
 
 script:
   - mkdir build ; cd build
-  - cmake -DRPCLIB_ENABLE_COVERAGE=ON -DRPCLIB_BUILD_TESTS=ON -DRPCLIB_CXX_STANDARD=$RPCLIB_CXX_STANDARD ..
+  - cmake -DRPCLIB_ENABLE_COVERAGE=ON -DRPCLIB_BUILD_TESTS=ON -DRPCLIB_CXX_STANDARD=$RPCLIB_CXX_STANDARD -DCMAKE_INSTALL_PREFIX=../install ..
   - cmake --build . --config $BUILD_TYPE
+  - cmake --build . --target install
 
 after_success:
-  - ./build/output/bin/rpc_test
+  - ../install/bin/rpc_test
   - coveralls --exclude dependencies --exclude test --exclude include/rpc/msgpack --exclude include/rcp/msgpack.hpp --gcov /usr/bin/gcov-5
