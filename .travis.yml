@@ -33,7 +33,8 @@ install:
 
 script:
   - mkdir build ; cd build
-  - cmake -DRPCLIB_ENABLE_COVERAGE=ON -DRPCLIB_BUILD_TESTS=ON -DRPCLIB_CXX_STANDARD=$RPCLIB_CXX_STANDARD -DCMAKE_INSTALL_PREFIX=../install ..
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then export COV=OFF ;else export COV=ON ; fi
+  - cmake -DRPCLIB_ENABLE_COVERAGE=$COV -DRPCLIB_BUILD_TESTS=ON -DRPCLIB_CXX_STANDARD=$RPCLIB_CXX_STANDARD -DCMAKE_INSTALL_PREFIX=../install ..
   - cmake --build . --config $BUILD_TYPE
   - cmake --build . --target install
 
