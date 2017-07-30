@@ -24,22 +24,12 @@ addons:
       - gcc-5
       - clang-3.8
 
-before_install:
-  - brew update
-  - brew install pyenv
-  - eval "$(pyenv init -)"
-  - pyenv install 2.7.6
-  - pyenv global 2.7.6
-  - pyenv rehash
-  - pip install cpp-coveralls
-  - pyenv rehash
-
 install:
   - if [ "$CXX" == "g++" ];     then export CXX="g++-5" CC="gcc-5"; fi
   - if [ "$CXX" == "clang++" ]; then export CXX="clang++-3.8" CC="clang-3.8"; fi
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update                ; fi
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install sfml llvm@3.8 gcc@5 ; fi
-  - pip install --user cpp-coveralls
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; pip install --user cpp-coveralls ; fi
 
 script:
   - mkdir build ; cd build
@@ -49,4 +39,4 @@ script:
 
 after_success:
   - ./output/bin/rpc_test
-  - coveralls --exclude dependencies --exclude test --exclude include/rpc/msgpack --exclude include/rcp/msgpack.hpp --gcov /usr/bin/gcov-5
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; coveralls --exclude dependencies --exclude test --exclude include/rpc/msgpack --exclude include/rcp/msgpack.hpp --gcov /usr/bin/gcov-5 ; fi
