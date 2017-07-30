@@ -39,4 +39,4 @@ script:
 
 after_success:
   - ./output/bin/rpc_test
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; coveralls --exclude dependencies --exclude test --exclude include/rpc/msgpack --exclude include/rcp/msgpack.hpp --gcov /usr/bin/gcov-5 ; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then coveralls --exclude dependencies --exclude test --exclude include/rpc/msgpack --exclude include/rcp/msgpack.hpp --gcov /usr/bin/gcov-5 ; fi
