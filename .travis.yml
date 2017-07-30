@@ -31,5 +31,5 @@ script:
   - cmake --build . --target install
 
 after_success:
-  - ../install/bin/rpc_test
+  - ./output/bin/rpc_test
   - coveralls --exclude dependencies --exclude test --exclude include/rpc/msgpack --exclude include/rcp/msgpack.hpp --gcov /usr/bin/gcov-5
