@@ -18,10 +18,15 @@ addons:
   apt:
     packages:
       - libsfml-dev
+      - g++-5
+      - gcc-5
+      - clang-3.8
 
 install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update       ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install sfml ; fi
+  - if [ "$CXX" == "g++" ];     then export CXX="g++-5" CC="gcc-5"; fi
+  - if [ "$CXX" == "clang++" ]; then export CXX="clang++-3.8" CC="clang-3.8"; fi
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update       ; fi
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install sfml ; fi
   - pip install --user cpp-coveralls
 
 script:
